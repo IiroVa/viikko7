@@ -44,10 +44,10 @@ public class App
 
             }else if(iValinta==5){
                 yliopisto.listCourses();
-                System.out.println("Mille kurssille haluat lisätä opiskelijan? Syötä kurssin numero");
+                System.out.println("Mille kurssille haluat lisätä opiskelijan? Syötä kurssin numero:");
                 kurssiValinta=Integer.parseInt(sc.nextLine());
                 yliopisto.listStudents();
-                System.out.println("Minkä opiskelijan haluat lisätä kurssille? Syötä opiskelijan numero");
+                System.out.println("Minkä opiskelijan haluat lisätä kurssille? Syötä opiskelijan numero:");
                 opiskelijaValinta=Integer.parseInt(sc.nextLine());
                 Student st = yliopisto.getStudent(opiskelijaValinta);
                 Course course = yliopisto.getCourse(kurssiValinta); 
