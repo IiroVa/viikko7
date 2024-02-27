@@ -2,8 +2,9 @@ package main;
 import java.util.ArrayList;
 
 public class Gifu {
-    ArrayList <Course> courses = new ArrayList<>();
-    ArrayList <Student> students = new ArrayList<>();
+    private ArrayList <Course> courses = new ArrayList<>();
+    private ArrayList <Student> students = new ArrayList<>();
+    private ArrayList <Enrollment> enrollments = new ArrayList<>();
     private String University;
 
     public Gifu(String university){
@@ -17,12 +18,16 @@ public class Gifu {
 
     }
 
-    public void gerCourse(){
+    public Course getCourse(int id){
+        Course course = courses.get(id);
+        return(course);
 
     }
 
-    public void gerCourses(){
+    public ArrayList<Course> getCourses(){
+  
 
+        return(courses);
     }
     public void listCourses(){
         int i=0;
@@ -38,8 +43,10 @@ public class Gifu {
         students.add(st);
     }
 
-    public void getStudent(){
+    public Student getStudent(int id){
+        Student st = students.get(id);
 
+        return(st);
     }
 
     public void listStudents(){
@@ -51,18 +58,49 @@ public class Gifu {
             i++;
         }
     }
-    public void enrollStudent(){
-
+    public void enrollStudent(Student student, Course course){
+        Enrollment enroll = new Enrollment(-1, student, course);
+        enrollments.add(enroll);
+        
     }
 
-    public void getEnrollments(){
 
+    public ArrayList<Enrollment> getEnrollments(Course course){
+        ArrayList <Enrollment> studentss = new ArrayList<>();
+        for(Enrollment enroll:enrollments){
+            Course cr=enroll.getCourse();
+            if(cr==course){
+                studentss.add(enroll);
+            }
+            
+        }
+        return(studentss);
     }
+    public void updateGrades(Student student, Course cr, int arvosana){
+        
+        for(Enrollment enroll:enrollments){
+           if((enroll.getStudent()==student) && (enroll.getCourse() == cr)){
+                enroll.gradeCourse(arvosana);
+           }   
+        }
+    }
+
+    public ArrayList<Enrollment> getEnrollments(Student student){
+        ArrayList <Enrollment> studentss = new ArrayList<>();
+        for(Enrollment enroll:enrollments){
+            if(enroll.getStudent() == student){
+                studentss.add(enroll);
+            }
+            
+        }
+        return(studentss);
   
+    }
+    public ArrayList<Enrollment> getEnrollmentt(){
+        return(enrollments);
+    }
 
 
-    
-    
 }
 
 

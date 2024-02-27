@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App 
@@ -7,7 +8,7 @@ public class App
     public static void main( String[] args )
     {
 
-        int iValinta, maxOpiskelijoita;
+        int iValinta, maxOpiskelijoita, kurssiValinta, opiskelijaValinta, arvosana;
         String kurssinNimi, kurssiID, opNumero, opNimi;
         Scanner sc = new Scanner(System.in);
         System.out.println("Tervetuloa Gifu-järjestelmään");
@@ -42,18 +43,79 @@ public class App
                 yliopisto.listStudents();
 
             }else if(iValinta==5){
-                System.out.println("Lisää opiskelija kurssille");
+                yliopisto.listCourses();
+                System.out.println("Mille kurssille haluat lisätä opiskelijan? Syötä kurssin numero");
+                kurssiValinta=Integer.parseInt(sc.nextLine());
+                yliopisto.listStudents();
+                System.out.println("Minkä opiskelijan haluat lisätä kurssille? Syötä opiskelijan numero");
+                opiskelijaValinta=Integer.parseInt(sc.nextLine());
+                Student st = yliopisto.getStudent(opiskelijaValinta);
+                Course course = yliopisto.getCourse(kurssiValinta); 
+                yliopisto.enrollStudent(st, course);
 
             }else if(iValinta==6){
-                System.out.println("Anna kurssi arvosanat");
+                yliopisto.listCourses();
+                System.out.println("Minkä kurssin haluat arvostella? Syötä kurssin numero:");
+                kurssiValinta=Integer.parseInt(sc.nextLine());
+                Course cr = yliopisto.getCourse(kurssiValinta);
+                ArrayList<Enrollment> studentteja = yliopisto.getEnrollments(cr);
+                for(Enrollment er : studentteja){
+                    System.out.println("Anna arvosana opiskelijalle " + er.getStudent().getId() + " " + er.getStudent().getName());
+                    arvosana = Integer.parseInt(sc.nextLine());
+                    yliopisto.updateGrades(er.getStudent(),er.getCourse(),arvosana);
+                    }
+                
                 
             }else if (iValinta==7){
-                System.out.println("Listaa kurssilla olevat opiskelijat");
+                yliopisto.listCourses();
+                System.out.println("Minkä kurssin opiskelijat haluat listata? Syötä kurssin numero:");
+                kurssiValinta=Integer.parseInt(sc.nextLine());
+                Course cr = yliopisto.getCourse(kurssiValinta);
+                ArrayList<Enrollment> studentteja = yliopisto.getEnrollments(cr);
+                for(Enrollment er : studentteja){
+                    System.out.println(er.getStudent().getId() + " " + er.getStudent().getName() + ", arvosana: " + er.getGrade() );
+                }
+                    
             }else if(iValinta==8){
-                System.out.println("Listaa opiskelijan arvosanat");
-
+                yliopisto.listStudents();
+                System.out.println("Minkä opiskelijan arvosanat haluat listata? Syötä opiskelijan numero:");
+                opiskelijaValinta = Integer.parseInt(sc.nextLine());
+                Student st = yliopisto.getStudent(opiskelijaValinta);
+                ArrayList<Enrollment> studentteja = yliopisto.getEnrollments(st);
+                System.out.println("Opiskelijan " + st.getId() + " " + st.getName() + " arvosanat:");
+                for(Enrollment er : studentteja){
+                    System.out.println(er.getCourse().getId() + " " + er.getCourse().getName() + ", arvosana: " + er.getGrade());
+                    
+                }
             }else if(iValinta==9){
-                System.out.println("Listaa kaikkien kurssien kaikkien opiskelijoiden arvosanat");
+                ArrayList<Enrollment> arvosanat = yliopisto.getEnrollmentt();
+                ArrayList<Course> courses = yliopisto.getCourses();
+                for(Course cr : courses){
+                    System.out.println(cr.getId() + " " + cr.getName());
+                    for(Enrollment er: arvosanat){
+                        if(er.getCourse()==cr){
+                            System.out.println(er.getStudent().getId() + " " + er.getStudent().getName() + ", arvosana:" + er.getGrade());
+                        }
+        
+                    }
+                    
+                }
+
+                /*
+                 * 
+                     public ArrayList<Enrollment> getCourses(){
+        ArrayList <Enrollment> kaikkiArvosanat = new ArrayList<>();
+        for(Course cr : courses){
+            
+            for(Enrollment er: enrollments){
+                if(er.getCourse()==cr){
+                    kaikkiArvosanat.add(er);
+                }
+
+            }
+
+        }
+                 */
             }else if(iValinta==0){
                 System.out.println("Kiitos ohjelman käytöstä.");
             }else{
