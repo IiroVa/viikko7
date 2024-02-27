@@ -1,6 +1,6 @@
 package main;
 
-public class Course {
+public class Course implements PrintInfo {
     private int maxNumberOfStudents;
     private String name;
     private String id;
@@ -13,8 +13,8 @@ public class Course {
 
     }
 
-    public int getInformation(){
-        return(maxNumberOfStudents);
+    public void getInformation(){
+        
     }
 
     public String getName(){

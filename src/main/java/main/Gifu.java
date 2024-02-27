@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Gifu {
     ArrayList <Course> courses = new ArrayList<>();
+    ArrayList <Student> students = new ArrayList<>();
     private String University;
 
     public Gifu(String university){
@@ -33,8 +34,8 @@ public class Gifu {
         }
             
     }
-    public void addStudent(){
-
+    public void addStudent(Student st){
+        students.add(st);
     }
 
     public void getStudent(){
@@ -42,7 +43,13 @@ public class Gifu {
     }
 
     public void listStudents(){
+        int i=0;
 
+        for(Student st : students ){
+            
+            System.out.println(i + ") " + st.getId() + " " + st.getName());
+            i++;
+        }
     }
     public void enrollStudent(){
 

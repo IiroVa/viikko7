@@ -8,7 +8,7 @@ public class App
     {
 
         int iValinta, maxOpiskelijoita;
-        String kurssinNimi, kurssiID;
+        String kurssinNimi, kurssiID, opNumero, opNimi;
         Scanner sc = new Scanner(System.in);
         System.out.println("Tervetuloa Gifu-järjestelmään");
         System.out.println("Mille yliopistolle haluat ottaa järjestelmän käyttöön?");
@@ -28,13 +28,18 @@ public class App
                 Course kurssi = new Course (maxOpiskelijoita, kurssinNimi, kurssiID);
                 yliopisto.addCourse(kurssi);
             }else if(iValinta==2){
-                System.out.println("Luo uusi opiskelija");
+                System.out.println("Anna opiskelijan nimi:");
+                opNimi=sc.nextLine();
+                System.out.println("Anna opiskelijan opiskelijanumero:");
+                opNumero=sc.nextLine();
+                Student st = new Student(opNimi, opNumero);
+                yliopisto.addStudent(st);
 
             }else if(iValinta==3){
                 yliopisto.listCourses();
 
             }else if (iValinta==4){
-                System.out.println("Listaa opiskelijat");
+                yliopisto.listStudents();
 
             }else if(iValinta==5){
                 System.out.println("Lisää opiskelija kurssille");
@@ -50,10 +55,12 @@ public class App
             }else if(iValinta==9){
                 System.out.println("Listaa kaikkien kurssien kaikkien opiskelijoiden arvosanat");
             }else if(iValinta==0){
-                System.out.println("Kiitos ohjelman käytöstä");
+                System.out.println("Kiitos ohjelman käytöstä.");
             }else{
                 System.out.println("Tuntematon valinta, yritä uudelleen.");
             }
         }while(iValinta!=0);
+
+    sc.close();
     }
 }
